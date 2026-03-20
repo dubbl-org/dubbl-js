@@ -24,7 +24,7 @@ Open a [GitHub Discussion](https://github.com/dubbl-org/dubbl-js/discussions) or
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+
+- [Node.js](https://nodejs.org/) 20+
 - [pnpm](https://pnpm.io/) 10+
 
 ### Getting Started
