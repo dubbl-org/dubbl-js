@@ -13,7 +13,7 @@
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D18-green.svg" alt="Node.js" /></a>
 </p>
 
-The official Node.js/TypeScript client library for the [Dubbl](https://dubbl.so) API. Full-featured SDK for accounting, invoicing, payroll, inventory, CRM, and more.
+The official Node.js/TypeScript client library for the [Dubbl](https://dubbl.dev) API. Full-featured SDK for accounting, invoicing, payroll, inventory, CRM, and more.
 
 ## Installation
 
@@ -77,8 +77,8 @@ const dubbl = new Dubbl({
   // Required: Your API key (format: dk_<key>)
   apiKey: "dk_your_api_key_here",
 
-  // Optional: Base URL (defaults to https://app.dubbl.so)
-  baseUrl: "https://app.dubbl.so",
+  // Optional: Base URL (defaults to https://app.dubbl.dev)
+  baseUrl: "https://app.dubbl.dev",
 
   // Optional: Organization ID (required if your account has multiple orgs)
   organizationId: "org_123",
@@ -391,4 +391,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
 
 ## License
 
-[MIT](./LICENSE) &copy; [Dubbl](https://dubbl.so)
+[MIT](./LICENSE) &copy; [Dubbl](https://dubbl.dev)

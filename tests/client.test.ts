@@ -217,7 +217,7 @@ describe("HttpClient", () => {
   it("uses default base URL when not provided", () => {
     const fetch = mockFetch({ status: 200, body: {} });
     const client = new HttpClient({ apiKey: "dk_test", fetch });
-    expect(client.baseUrl).toBe("https://app.dubbl.so");
+    expect(client.baseUrl).toBe("https://app.dubbl.dev");
   });
 });
 
