@@ -77,8 +77,8 @@ const dubbl = new Dubbl({
   // Required: Your API key (format: dk_<key>)
   apiKey: "dk_your_api_key_here",
 
-  // Optional: Base URL (defaults to https://app.dubbl.dev)
-  baseUrl: "https://app.dubbl.dev",
+  // Optional: Base URL (defaults to https://dubbl.dev)
+  baseUrl: "https://dubbl.dev",
 
   // Optional: Organization ID (required if your account has multiple orgs)
   organizationId: "org_123",

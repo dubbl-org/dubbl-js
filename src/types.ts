@@ -3,7 +3,7 @@
 export interface DubblOptions {
   /** API key in the format `dk_<key>` */
   apiKey: string;
-  /** Base URL for the API. Defaults to `https://app.dubbl.dev` */
+  /** Base URL for the API. Defaults to `https://dubbl.dev` */
   baseUrl?: string;
   /** Organization ID header. Required if user belongs to multiple organizations. */
   organizationId?: string;

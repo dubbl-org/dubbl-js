@@ -12,7 +12,7 @@ import {
 } from "./errors.js";
 import type { DubblOptions, RequestOptions } from "./types.js";
 
-const DEFAULT_BASE_URL = "https://app.dubbl.dev";
+const DEFAULT_BASE_URL = "https://dubbl.dev";
 const DEFAULT_TIMEOUT = 30_000;
 const DEFAULT_MAX_RETRIES = 2;
 const RETRYABLE_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
