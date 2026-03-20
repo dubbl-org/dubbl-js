@@ -8,7 +8,7 @@ Be kind, respectful, and constructive. We're all here to build good software tog
 
 ## Reporting Bugs
 
-Open a [GitHub Issue](https://github.com/dubbl/dubbl-js/issues) with:
+Open a [GitHub Issue](https://github.com/dubbl-org/dubbl-js/issues) with:
 
 - A clear title and description
 - Steps to reproduce
@@ -18,7 +18,7 @@ Open a [GitHub Issue](https://github.com/dubbl/dubbl-js/issues) with:
 
 ## Requesting Features
 
-Open a [GitHub Discussion](https://github.com/dubbl/dubbl-js/discussions) or Issue describing the use case and why you think it would be valuable.
+Open a [GitHub Discussion](https://github.com/dubbl-org/dubbl-js/discussions) or Issue describing the use case and why you think it would be valuable.
 
 ## Development Setup
 
@@ -31,7 +31,7 @@ Open a [GitHub Discussion](https://github.com/dubbl/dubbl-js/discussions) or Iss
 
 ```bash
 # Clone the repository
-git clone https://github.com/dubbl/dubbl-js.git
+git clone https://github.com/dubbl-org/dubbl-js.git
 cd dubbl-js
 
 # Install dependencies
@@ -128,4 +128,4 @@ Releases are managed by maintainers. Version bumps follow [semver](https://semve
 
 ## Questions?
 
-Open a [Discussion](https://github.com/dubbl/dubbl-js/discussions) or reach out on the Dubbl community channels.
+Open a [Discussion](https://github.com/dubbl-org/dubbl-js/discussions) or reach out on the Dubbl community channels.

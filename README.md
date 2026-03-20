@@ -1,11 +1,17 @@
-# Dubbl Node.js SDK
+<p align="center">
+  <img src="logo.svg" alt="Dubbl" width="120" />
+</p>
 
-[![npm version](https://img.shields.io/npm/v/dubbl.svg)](https://www.npmjs.com/package/dubbl)
-[![npm downloads](https://img.shields.io/npm/dm/dubbl.svg)](https://www.npmjs.com/package/dubbl)
-[![CI](https://github.com/dubbl/dubbl-js/actions/workflows/ci.yml/badge.svg)](https://github.com/dubbl/dubbl-js/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-green.svg)](https://nodejs.org/)
+<h1 align="center">Dubbl Node.js SDK</h1>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/dubbl"><img src="https://img.shields.io/npm/v/dubbl.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/dubbl"><img src="https://img.shields.io/npm/dm/dubbl.svg" alt="npm downloads" /></a>
+  <a href="https://github.com/dubbl-org/dubbl-js/actions/workflows/ci.yml"><img src="https://github.com/dubbl-org/dubbl-js/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.x-blue.svg" alt="TypeScript" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D18-green.svg" alt="Node.js" /></a>
+</p>
 
 The official Node.js/TypeScript client library for the [Dubbl](https://dubbl.so) API. Full-featured SDK for accounting, invoicing, payroll, inventory, CRM, and more.
 
