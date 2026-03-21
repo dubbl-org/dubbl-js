@@ -54,7 +54,7 @@
     "url": "https://github.com/dubbl-org/dubbl-js/issues"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "packageManager": "pnpm@10.30.3",
   "devDependencies": {

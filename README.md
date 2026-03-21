@@ -10,10 +10,10 @@
   <a href="https://github.com/dubbl-org/dubbl-js/actions/workflows/ci.yml"><img src="https://github.com/dubbl-org/dubbl-js/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.x-blue.svg" alt="TypeScript" /></a>
-  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D18-green.svg" alt="Node.js" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D20-green.svg" alt="Node.js" /></a>
 </p>
 
-The official Node.js/TypeScript client library for the [Dubbl](https://dubbl.so) API. Full-featured SDK for accounting, invoicing, payroll, inventory, CRM, and more.
+The official Node.js/TypeScript client library for the [Dubbl](https://dubbl.dev) API. Full-featured SDK for accounting, invoicing, payroll, inventory, CRM, and more.
 
 ## Installation
 
@@ -77,8 +77,8 @@ const dubbl = new Dubbl({
   // Required: Your API key (format: dk_<key>)
   apiKey: "dk_your_api_key_here",
 
-  // Optional: Base URL (defaults to https://app.dubbl.so)
-  baseUrl: "https://app.dubbl.so",
+  // Optional: Base URL (defaults to https://dubbl.dev)
+  baseUrl: "https://dubbl.dev",
 
   // Optional: Organization ID (required if your account has multiple orgs)
   organizationId: "org_123",
@@ -382,7 +382,7 @@ Retries use exponential backoff with jitter. Configure via the `maxRetries` opti
 
 ## Requirements
 
-- Node.js 18 or later
+- Node.js 20 or later
 - A Dubbl account with API access (Pro plan or above)
 
 ## Contributing
@@ -391,4 +391,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
 
 ## License
 
-[MIT](./LICENSE) &copy; [Dubbl](https://dubbl.so)
+[MIT](./LICENSE) &copy; [Dubbl](https://dubbl.dev)
