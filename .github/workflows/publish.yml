@@ -13,13 +13,13 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
           cache: pnpm
           registry-url: "https://registry.npmjs.org"
 
@@ -38,6 +38,6 @@ jobs:
           test -f dist/index.d.ts
           test -f dist/index.d.cts
 
-      - run: pnpm publish --provenance --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # npm trusted publishing uses GitHub OIDC via `id-token: write`.
+      # No long-lived npm token should be configured for this workflow.
+      - run: npm publish

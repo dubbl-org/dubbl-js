@@ -126,6 +126,27 @@ Releases are managed by maintainers. Version bumps follow [semver](https://semve
 - **Minor** (`0.2.0`): New features, backwards compatible
 - **Major** (`1.0.0`): Breaking changes
 
+Publishing to npm is handled by GitHub Actions via npm trusted publishing:
+
+1. Bump the version locally with `pnpm version patch|minor|major`
+2. Push the commit and tag
+3. Create or publish a GitHub Release for that tag
+4. The `.github/workflows/publish.yml` workflow will run the checks and publish to npm
+
+To enable trusted publishing on npm for this repository:
+
+- Open the `dubbl` package settings on npmjs.com
+- Add a GitHub Actions trusted publisher
+- Set Organization/User to `dubbl-org`
+- Set Repository to `dubbl-js`
+- Set Workflow filename to `publish.yml`
+
+Notes:
+
+- No `NPM_TOKEN` repository secret is required for publishing once trusted publishing is configured
+- The workflow must keep the filename `publish.yml` unless you also update the npm trusted publisher settings
+- After confirming trusted publishing works, consider restricting token-based publishing access in npm package settings
+
 ## Questions?
 
 Open a [Discussion](https://github.com/dubbl-org/dubbl-js/discussions) or reach out on the Dubbl community channels.
