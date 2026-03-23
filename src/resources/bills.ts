@@ -9,6 +9,7 @@ import type {
   PaginatedResponse,
   RequestOptions,
 } from "../types.js";
+import { unwrap } from "./_utils.js";
 
 export class BillsResource {
   constructor(private readonly client: HttpClient) {}
@@ -20,17 +21,20 @@ export class BillsResource {
 
   /** Create a new bill. */
   async create(params: BillCreateParams, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>("/api/v1/bills", params, options);
+    const response = await this.client.post<unknown>("/api/v1/bills", params, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Get a bill by ID. */
   async get(id: string, options?: RequestOptions): Promise<Bill> {
-    return this.client.get<Bill>(`/api/v1/bills/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/bills/${id}`, undefined, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Update a draft bill. */
   async update(id: string, params: BillUpdateParams, options?: RequestOptions): Promise<Bill> {
-    return this.client.patch<Bill>(`/api/v1/bills/${id}`, params, options);
+    const response = await this.client.patch<unknown>(`/api/v1/bills/${id}`, params, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Delete a bill. */
@@ -40,27 +44,32 @@ export class BillsResource {
 
   /** Mark a bill as received. */
   async receive(id: string, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>(`/api/v1/bills/${id}/receive`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/bills/${id}/receive`, undefined, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Record a payment against a bill. */
   async pay(id: string, params: BillPayParams, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>(`/api/v1/bills/${id}/pay`, params, options);
+    const response = await this.client.post<unknown>(`/api/v1/bills/${id}/pay`, params, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Void a bill. */
   async void(id: string, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>(`/api/v1/bills/${id}/void`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/bills/${id}/void`, undefined, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Approve a bill. */
   async approve(id: string, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>(`/api/v1/bills/${id}/approve`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/bills/${id}/approve`, undefined, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Reject a bill. */
   async reject(id: string, options?: RequestOptions): Promise<Bill> {
-    return this.client.post<Bill>(`/api/v1/bills/${id}/reject`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/bills/${id}/reject`, undefined, options);
+    return unwrap<Bill>(response, "bill");
   }
 
   /** Get bill counts grouped by status. */

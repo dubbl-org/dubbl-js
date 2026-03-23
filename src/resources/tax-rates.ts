@@ -5,28 +5,33 @@ import type {
   TaxRateUpdateParams,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapList } from "./_utils.js";
 
 export class TaxRatesResource {
   constructor(private readonly client: HttpClient) {}
 
   /** List all tax rates. */
   async list(options?: RequestOptions): Promise<TaxRate[]> {
-    return this.client.get<TaxRate[]>("/api/v1/tax-rates", undefined, options);
+    const response = await this.client.get<unknown>("/api/v1/tax-rates", undefined, options);
+    return unwrapList<TaxRate>(response, "taxRates");
   }
 
   /** Create a new tax rate. */
   async create(params: TaxRateCreateParams, options?: RequestOptions): Promise<TaxRate> {
-    return this.client.post<TaxRate>("/api/v1/tax-rates", params, options);
+    const response = await this.client.post<unknown>("/api/v1/tax-rates", params, options);
+    return unwrap<TaxRate>(response, "taxRate");
   }
 
   /** Get a tax rate by ID. */
   async get(id: string, options?: RequestOptions): Promise<TaxRate> {
-    return this.client.get<TaxRate>(`/api/v1/tax-rates/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/tax-rates/${id}`, undefined, options);
+    return unwrap<TaxRate>(response, "taxRate");
   }
 
   /** Update a tax rate. */
   async update(id: string, params: TaxRateUpdateParams, options?: RequestOptions): Promise<TaxRate> {
-    return this.client.patch<TaxRate>(`/api/v1/tax-rates/${id}`, params, options);
+    const response = await this.client.patch<unknown>(`/api/v1/tax-rates/${id}`, params, options);
+    return unwrap<TaxRate>(response, "taxRate");
   }
 
   /** Delete a tax rate. */

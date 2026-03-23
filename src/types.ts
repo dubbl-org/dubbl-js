@@ -1112,7 +1112,7 @@ export interface AssemblyOrderCreateParams {
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 
-export type ProjectStatus = "active" | "completed" | "archived" | "on_hold";
+export type ProjectStatus = "active" | "completed" | "archived" | "on_hold" | "cancelled";
 
 export interface Project {
   id: string;
@@ -1124,6 +1124,7 @@ export interface Project {
   endDate: string | null;
   budget: number | null;
   currencyCode: string;
+  currency?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -1137,6 +1138,7 @@ export interface ProjectCreateParams {
   endDate?: string | null;
   budget?: number | null;
   currencyCode?: string;
+  currency?: string;
 }
 
 export interface ProjectUpdateParams {
@@ -1147,6 +1149,8 @@ export interface ProjectUpdateParams {
   startDate?: string | null;
   endDate?: string | null;
   budget?: number | null;
+  currencyCode?: string;
+  currency?: string;
 }
 
 export interface ProjectListParams extends PaginationParams {
@@ -1161,20 +1165,34 @@ export interface ProjectTask {
   id: string;
   projectId: string;
   name: string;
+  title?: string;
   description: string | null;
-  status: "todo" | "in_progress" | "done";
+  status: "backlog" | "todo" | "in_progress" | "in_review" | "done" | "cancelled";
   assigneeId: string | null;
+  teamId?: string | null;
+  startDate?: string | null;
   dueDate: string | null;
+  priority?: "low" | "medium" | "high" | "urgent";
+  estimatedMinutes?: number | null;
+  labels?: string[];
+  sortOrder?: number;
+  completedAt?: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface ProjectTaskCreateParams {
   name: string;
+  title?: string;
   description?: string | null;
-  status?: "todo" | "in_progress" | "done";
+  status?: "backlog" | "todo" | "in_progress" | "in_review" | "done" | "cancelled";
+  priority?: "low" | "medium" | "high" | "urgent";
   assigneeId?: string | null;
+  teamId?: string | null;
+  startDate?: string | null;
   dueDate?: string | null;
+  estimatedMinutes?: number | null;
+  labels?: string[];
 }
 
 export interface ChecklistItem {
@@ -1189,8 +1207,10 @@ export interface TimeEntry {
   userId: string;
   date: string;
   hours: number;
+  minutes?: number;
   description: string | null;
   isBillable: boolean;
+  hourlyRate?: number;
   createdAt: string;
 }
 
@@ -1198,8 +1218,10 @@ export interface TimeEntryCreateParams {
   taskId?: string | null;
   date: string;
   hours: number;
+  minutes?: number;
   description?: string | null;
   isBillable?: boolean;
+  hourlyRate?: number;
 }
 
 // ─── CRM ──────────────────────────────────────────────────────────────────────
@@ -1324,16 +1346,16 @@ export interface ImportJob {
 // ─── Attachments & Documents ──────────────────────────────────────────────────
 
 export interface PresignedUrl {
-  url: string;
-  key: string;
-  fields: Record<string, string>;
+  uploadUrl: string;
+  attachment: Record<string, unknown>;
 }
 
 export interface PresignParams {
-  filename: string;
+  fileName?: string;
+  filename?: string;
   contentType: string;
-  entityType?: string;
-  entityId?: string;
+  fileSize: number;
+  journalEntryId?: string | null;
 }
 
 export interface Attachment {
@@ -1355,6 +1377,12 @@ export interface Document {
   entityId: string | null;
   size: number;
   createdAt: string;
+}
+
+export interface DocumentDownload {
+  downloadUrl: string;
+  fileName: string;
+  mimeType: string;
 }
 
 export interface DocumentCreateParams {
@@ -1436,13 +1464,17 @@ export interface TrashListParams extends PaginationParams {
 // ─── Period Lock ──────────────────────────────────────────────────────────────
 
 export interface PeriodLock {
-  lockedUntil: string;
-  lockedAt: string;
+  lockDate: string;
   lockedBy: string;
+  reason?: string | null;
+  lockedUntil?: string;
+  lockedAt?: string;
 }
 
 export interface PeriodLockParams {
-  lockedUntil: string;
+  lockDate?: string;
+  lockedUntil?: string;
+  reason?: string | null;
 }
 
 // ─── Exchange Rates ───────────────────────────────────────────────────────────
@@ -1466,7 +1498,8 @@ export interface Currency {
   code: string;
   name: string;
   symbol: string;
-  decimals: number;
+  decimals?: number;
+  decimalPlaces?: number;
 }
 
 // ─── Recurring Transactions ───────────────────────────────────────────────────

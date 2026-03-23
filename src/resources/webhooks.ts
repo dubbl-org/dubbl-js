@@ -8,28 +8,33 @@ import type {
   PaginatedResponse,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapList } from "./_utils.js";
 
 export class WebhooksResource {
   constructor(private readonly client: HttpClient) {}
 
   /** List webhooks. */
   async list(options?: RequestOptions): Promise<Webhook[]> {
-    return this.client.get<Webhook[]>("/api/v1/webhooks", undefined, options);
+    const response = await this.client.get<unknown>("/api/v1/webhooks", undefined, options);
+    return unwrapList<Webhook>(response, "data");
   }
 
   /** Create a new webhook. */
   async create(params: WebhookCreateParams, options?: RequestOptions): Promise<Webhook> {
-    return this.client.post<Webhook>("/api/v1/webhooks", params, options);
+    const response = await this.client.post<unknown>("/api/v1/webhooks", params, options);
+    return unwrap<Webhook>(response, "webhook");
   }
 
   /** Get a webhook by ID. */
   async get(id: string, options?: RequestOptions): Promise<Webhook> {
-    return this.client.get<Webhook>(`/api/v1/webhooks/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/webhooks/${id}`, undefined, options);
+    return unwrap<Webhook>(response, "webhook");
   }
 
   /** Update a webhook. */
   async update(id: string, params: WebhookUpdateParams, options?: RequestOptions): Promise<Webhook> {
-    return this.client.patch<Webhook>(`/api/v1/webhooks/${id}`, params, options);
+    const response = await this.client.patch<unknown>(`/api/v1/webhooks/${id}`, params, options);
+    return unwrap<Webhook>(response, "webhook");
   }
 
   /** Delete a webhook. */
@@ -38,8 +43,9 @@ export class WebhooksResource {
   }
 
   /** Send a test event to a webhook. */
-  async test(id: string, options?: RequestOptions): Promise<{ success: boolean }> {
-    return this.client.post<{ success: boolean }>(`/api/v1/webhooks/${id}/test`, undefined, options);
+  async test(id: string, options?: RequestOptions): Promise<WebhookDelivery> {
+    const response = await this.client.post<unknown>(`/api/v1/webhooks/${id}/test`, undefined, options);
+    return unwrap<WebhookDelivery>(response, "delivery");
   }
 
   /** Get delivery logs for a webhook. */

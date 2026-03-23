@@ -11,6 +11,7 @@ import type {
   Attachment,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapList, unwrapPaginated } from "./_utils.js";
 
 export class ContactsResource {
   constructor(private readonly client: HttpClient) {}
@@ -22,17 +23,20 @@ export class ContactsResource {
 
   /** Create a new contact. */
   async create(params: ContactCreateParams, options?: RequestOptions): Promise<Contact> {
-    return this.client.post<Contact>("/api/v1/contacts", params, options);
+    const response = await this.client.post<unknown>("/api/v1/contacts", params, options);
+    return unwrap<Contact>(response, "contact");
   }
 
   /** Get a contact by ID. */
   async get(id: string, options?: RequestOptions): Promise<Contact> {
-    return this.client.get<Contact>(`/api/v1/contacts/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/contacts/${id}`, undefined, options);
+    return unwrap<Contact>(response, "contact");
   }
 
   /** Update a contact. */
   async update(id: string, params: ContactUpdateParams, options?: RequestOptions): Promise<Contact> {
-    return this.client.patch<Contact>(`/api/v1/contacts/${id}`, params, options);
+    const response = await this.client.patch<unknown>(`/api/v1/contacts/${id}`, params, options);
+    return unwrap<Contact>(response, "contact");
   }
 
   /** Delete a contact. */
@@ -42,12 +46,14 @@ export class ContactsResource {
 
   /** Get activity history for a contact. */
   async activity(id: string, params?: PaginationParams, options?: RequestOptions): Promise<PaginatedResponse<Record<string, unknown>>> {
-    return this.client.get(`/api/v1/contacts/${id}/activity`, params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>(`/api/v1/contacts/${id}/activity`, params as Record<string, unknown>, options);
+    return unwrapPaginated<Record<string, unknown>>(response, "activity");
   }
 
   /** Get people (contact persons) associated with a contact. */
   async people(id: string, options?: RequestOptions): Promise<Record<string, unknown>[]> {
-    return this.client.get<Record<string, unknown>[]>(`/api/v1/contacts/${id}/people`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/contacts/${id}/people`, undefined, options);
+    return unwrapList<Record<string, unknown>>(response, "data", "people");
   }
 
   /** Get a statement for a contact. */
@@ -67,6 +73,7 @@ export class ContactsResource {
 
   /** Get files attached to a contact. */
   async files(id: string, options?: RequestOptions): Promise<Attachment[]> {
-    return this.client.get<Attachment[]>(`/api/v1/contacts/${id}/files`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/contacts/${id}/files`, undefined, options);
+    return unwrapList<Attachment>(response, "data");
   }
 }

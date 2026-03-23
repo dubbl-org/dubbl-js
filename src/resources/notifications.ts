@@ -5,13 +5,15 @@ import type {
   PaginatedResponse,
   RequestOptions,
 } from "../types.js";
+import { unwrapPaginated } from "./_utils.js";
 
 export class NotificationsResource {
   constructor(private readonly client: HttpClient) {}
 
   /** List notifications. */
   async list(params?: NotificationListParams, options?: RequestOptions): Promise<PaginatedResponse<Notification>> {
-    return this.client.get<PaginatedResponse<Notification>>("/api/v1/notifications", params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>("/api/v1/notifications", params as Record<string, unknown>, options);
+    return unwrapPaginated<Notification>(response, "data");
   }
 
   /** Mark a notification as read. */
