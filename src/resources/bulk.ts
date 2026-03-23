@@ -1,11 +1,11 @@
 import type { HttpClient } from "../client.js";
 import type {
-  BulkImportResult,
   ImportJob,
   PaginationParams,
   PaginatedResponse,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapPaginated } from "./_utils.js";
 
 export class BulkResource {
   constructor(private readonly client: HttpClient) {}
@@ -13,8 +13,9 @@ export class BulkResource {
   // ─── Invoices ─────────────────────────────────────────────────────────────
 
   /** Bulk import invoices from CSV/spreadsheet data. */
-  async importInvoices(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/invoices/import", { data }, options);
+  async importInvoices(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/invoices/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   /** Bulk mark invoices as paid. */
@@ -24,21 +25,24 @@ export class BulkResource {
 
   /** Bulk send invoices. */
   async sendInvoices(ids: string[], options?: RequestOptions): Promise<{ sent: number }> {
-    return this.client.post("/api/v1/bulk/invoices/send", { ids }, options);
+    const response = await this.client.post<Record<string, unknown>>("/api/v1/bulk/invoices/send", { ids }, options);
+    return { sent: typeof response.updated === "number" ? response.updated : 0 };
   }
 
   // ─── Bills ────────────────────────────────────────────────────────────────
 
   /** Bulk import bills. */
-  async importBills(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/bills/import", { data }, options);
+  async importBills(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/bills/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   // ─── Contacts ─────────────────────────────────────────────────────────────
 
   /** Bulk import contacts. */
-  async importContacts(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/contacts/import", { data }, options);
+  async importContacts(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/contacts/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   /** Bulk tag contacts. */
@@ -54,22 +58,25 @@ export class BulkResource {
   // ─── Entries ──────────────────────────────────────────────────────────────
 
   /** Bulk import journal entries. */
-  async importEntries(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/entries/import", { data }, options);
+  async importEntries(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/entries/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   // ─── Accounts ─────────────────────────────────────────────────────────────
 
   /** Bulk import chart of accounts. */
-  async importAccounts(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/accounts/import", { data }, options);
+  async importAccounts(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/accounts/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   // ─── Products ─────────────────────────────────────────────────────────────
 
   /** Bulk import products. */
-  async importProducts(data: Record<string, unknown>[], options?: RequestOptions): Promise<BulkImportResult> {
-    return this.client.post<BulkImportResult>("/api/v1/bulk/products/import", { data }, options);
+  async importProducts(data: Record<string, unknown>[], options?: RequestOptions): Promise<ImportJob> {
+    const response = await this.client.post<unknown>("/api/v1/bulk/products/import", { data }, options);
+    return unwrap<ImportJob>(response, "job");
   }
 
   // ─── Inventory ────────────────────────────────────────────────────────────
@@ -83,6 +90,7 @@ export class BulkResource {
 
   /** Get the status of import jobs. */
   async importJobs(params?: PaginationParams, options?: RequestOptions): Promise<PaginatedResponse<ImportJob>> {
-    return this.client.get<PaginatedResponse<ImportJob>>("/api/v1/bulk/import-jobs", params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>("/api/v1/bulk/import-jobs", params as Record<string, unknown>, options);
+    return unwrapPaginated<ImportJob>(response, "jobs");
   }
 }

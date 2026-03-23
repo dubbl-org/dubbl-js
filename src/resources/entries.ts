@@ -6,6 +6,7 @@ import type {
   PaginatedResponse,
   RequestOptions,
 } from "../types.js";
+import { unwrap } from "./_utils.js";
 
 export class EntriesResource {
   constructor(private readonly client: HttpClient) {}
@@ -17,12 +18,14 @@ export class EntriesResource {
 
   /** Create a new journal entry. Debits must equal credits with a minimum of 2 lines. */
   async create(params: EntryCreateParams, options?: RequestOptions): Promise<Entry> {
-    return this.client.post<Entry>("/api/v1/entries", params, options);
+    const response = await this.client.post<unknown>("/api/v1/entries", params, options);
+    return unwrap<Entry>(response, "entry");
   }
 
   /** Get a journal entry by ID with all lines. */
   async get(id: string, options?: RequestOptions): Promise<Entry> {
-    return this.client.get<Entry>(`/api/v1/entries/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/entries/${id}`, undefined, options);
+    return unwrap<Entry>(response, "entry");
   }
 
   /** Delete a draft journal entry. */
@@ -32,11 +35,13 @@ export class EntriesResource {
 
   /** Post a draft entry to the ledger. */
   async post(id: string, options?: RequestOptions): Promise<Entry> {
-    return this.client.post<Entry>(`/api/v1/entries/${id}/post`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/entries/${id}/post`, undefined, options);
+    return unwrap<Entry>(response, "entry");
   }
 
   /** Void a posted entry. */
   async void(id: string, options?: RequestOptions): Promise<Entry> {
-    return this.client.post<Entry>(`/api/v1/entries/${id}/void`, undefined, options);
+    const response = await this.client.post<unknown>(`/api/v1/entries/${id}/void`, undefined, options);
+    return unwrap<Entry>(response, "entry");
   }
 }

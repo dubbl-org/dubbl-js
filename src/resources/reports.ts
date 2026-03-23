@@ -8,6 +8,7 @@ import type {
   PaginationParams,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapPaginated } from "./_utils.js";
 
 export class ReportsResource {
   constructor(private readonly client: HttpClient) {}
@@ -173,17 +174,20 @@ export class ReportsResource {
 
   /** List saved reports. */
   async savedList(params?: PaginationParams, options?: RequestOptions): Promise<PaginatedResponse<SavedReport>> {
-    return this.client.get<PaginatedResponse<SavedReport>>("/api/v1/reports/saved", params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>("/api/v1/reports/saved", params as Record<string, unknown>, options);
+    return unwrapPaginated<SavedReport>(response, "reports");
   }
 
   /** Save a report configuration. */
   async save(params: SavedReportCreateParams, options?: RequestOptions): Promise<SavedReport> {
-    return this.client.post<SavedReport>("/api/v1/reports/saved", params, options);
+    const response = await this.client.post<unknown>("/api/v1/reports/saved", params, options);
+    return unwrap<SavedReport>(response, "report");
   }
 
   /** Get a saved report by ID. */
   async savedGet(id: string, options?: RequestOptions): Promise<SavedReport> {
-    return this.client.get<SavedReport>(`/api/v1/reports/saved/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/reports/saved/${id}`, undefined, options);
+    return unwrap<SavedReport>(response, "report");
   }
 
   /** Delete a saved report. */

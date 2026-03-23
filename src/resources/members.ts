@@ -8,28 +8,33 @@ import type {
   PaginationParams,
   RequestOptions,
 } from "../types.js";
+import { unwrap, unwrapPaginated } from "./_utils.js";
 
 export class MembersResource {
   constructor(private readonly client: HttpClient) {}
 
   /** List all members in the organization. */
   async list(params?: PaginationParams, options?: RequestOptions): Promise<PaginatedResponse<Member>> {
-    return this.client.get<PaginatedResponse<Member>>("/api/v1/members", params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>("/api/v1/members", params as Record<string, unknown>, options);
+    return unwrapPaginated<Member>(response, "members");
   }
 
   /** Invite a new member to the organization. */
   async invite(params: MemberInviteParams, options?: RequestOptions): Promise<Member> {
-    return this.client.post<Member>("/api/v1/members", params, options);
+    const response = await this.client.post<unknown>("/api/v1/members", params, options);
+    return unwrap<Member>(response, "member");
   }
 
   /** Get a member by ID. */
   async get(id: string, options?: RequestOptions): Promise<Member> {
-    return this.client.get<Member>(`/api/v1/members/${id}`, undefined, options);
+    const response = await this.client.get<unknown>(`/api/v1/members/${id}`, undefined, options);
+    return unwrap<Member>(response, "member");
   }
 
   /** Update a member's role. */
   async update(id: string, params: MemberUpdateParams, options?: RequestOptions): Promise<Member> {
-    return this.client.patch<Member>(`/api/v1/members/${id}`, params, options);
+    const response = await this.client.patch<unknown>(`/api/v1/members/${id}`, params, options);
+    return unwrap<Member>(response, "member");
   }
 
   /** Remove a member from the organization. */

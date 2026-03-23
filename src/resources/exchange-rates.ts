@@ -4,12 +4,14 @@ import type {
   ExchangeRateParams,
   RequestOptions,
 } from "../types.js";
+import { unwrapList } from "./_utils.js";
 
 export class ExchangeRatesResource {
   constructor(private readonly client: HttpClient) {}
 
   /** Get exchange rates. */
   async get(params?: ExchangeRateParams, options?: RequestOptions): Promise<ExchangeRate[]> {
-    return this.client.get<ExchangeRate[]>("/api/v1/exchange-rates", params as Record<string, unknown>, options);
+    const response = await this.client.get<unknown>("/api/v1/exchange-rates", params as Record<string, unknown>, options);
+    return unwrapList<ExchangeRate>(response, "data");
   }
 }
